@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class DashboardController extends Controller
+class UserMenuController extends Controller
 {
     public function index()
     {
@@ -26,5 +26,4 @@ class DashboardController extends Controller
         return view('main.profil');
     }
 
-    
 }

@@ -2,12 +2,12 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Laravel\Socialite\Facades\Socialite;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\LogoutController;
-use App\Http\Controllers\SignupController;
 use App\Http\Controllers\LandingController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\SignupController;
+use App\Http\Controllers\User\UserMenuController;
+use App\Http\Controllers\Admin\AdminMenuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,12 +37,16 @@ Route::post('/register',[SignupController::class, 'store'])->name('register');
 
 Route::middleware(['customAuth'])->group(
     function(){
-        //  Authenticated Dashboard
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+        Route::get('/dashboard', [UserMenuController::class, 'index'])->name('dashboard.index');
+        Route::get('/daftarkosan', [UserMenuController::class, 'daftarkosan'])->name('daftarkosan.index');
+        Route::get('/contactperson', [UserMenuController::class, 'contactperson'])->name('contactperson.index');
+        Route::get('/profil', [UserMenuController::class, 'profil'])->name('profil.index');
+    }
+);
 
-        //  Main Menu
-        Route::get('/daftarkosan', [DashboardController::class, 'daftarkosan'])->name('daftarkosan.index');
-        Route::get('/contactperson', [DashboardController::class, 'contactperson'])->name('contactperson.index');
-        Route::get('/profil', [DashboardController::class, 'profil'])->name('profil.index');
+Route::middleware(['customAuth, verifyAdmin'])->group(
+    function(){
+        Route::get('/admin/dashboard', [AdminMenuController::class, 'index'])->name('admin.dashboard');
+
     }
 );
