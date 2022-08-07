@@ -1,5 +1,6 @@
 <?php
 
+Laravel\Socialite\SocialiteServiceProvider::class;
 use Illuminate\Support\Facades\Facade;
 
 return [

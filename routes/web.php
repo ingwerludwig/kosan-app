@@ -29,7 +29,7 @@ Route::post('/loggingout',[LogoutController::class, 'loggingout'])->name('loggin
 
 //  Google Sign In
 Route::get('/login/google',[LoginController::class, 'redirectToGoogle'])->name('login.redirect.google');
-Route::get('/login/facebook/callback',[LoginController::class, 'handleGoogleCallback']);
+Route::get('/login/callback',[LoginController::class, 'handleGoogleCallback']);
 
 //  Sign Up
 Route::get('/signup', [SignupController::class, 'index'])->name('signup');

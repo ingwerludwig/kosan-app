@@ -33,12 +33,7 @@ return [
     'google' => [
         'client_id' => '352202755152-fvf46c11rsog41kik2hcoc6g8bdkk9aq.apps.googleusercontent.com',
         'client_secret' => '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',
-        'redirect' => 'http://127.0.0.1:8000/dashboard',
+        'redirect' => 'http://127.0.0.1:8000/login/callback',
     ],
-    'facebook' => [
-        'client_id' => '791026681904356',
-        'client_secret' => 'ef765a99579def1482971453a6b1035e',
-        'redirect' => 'https://127.0.0.1:8000/dashboard',
-    ]
 
 ];

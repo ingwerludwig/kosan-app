@@ -6,7 +6,6 @@ use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -20,48 +19,48 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+
     //Google login
     public function redirectToGoogle()
     {
         return Socialite::driver('google')->redirect();
     }
 
+
     //Google callback
     public function handleGoogleCallback()
     {
         $user = Socialite::driver('google')->user();
         $this->registerOrLoginGoogle($user);
+        return redirect()->route('dashboard.index');
     }
 
-    public function registerOrLoginGoogle($user)
+
+    public function registerOrLoginGoogle($Googleuser)
     {
-        $user_exist = User::where('email', $user->email)->first();
-        if ($user_exist) {
-            Auth::login($user_exist);
+        $user_exist = User::where('email', $Googleuser->email)->first();
+
+        if ($user_exist)
+        {
+            auth()->login($user_exist);
             Alert::success('Success ', 'You are logged in');
             return redirect()->route('dashboard.index');
-        } else if(!$user || $user_exist){
-            // $new_user = new User();
-            // $new_user->name = $user->name();
-            // $new_user->email = $user->email;
-            // $new_user->password = Hash::make(Str::random(8));
-            // $new_user->created_at = Carbon::now();
-            // $new_user->updated_at = Carbon::now();
-            // $new_user->save();
-            // Auth::login($new_user);
-            // Alert::success('Success ', 'You are logged in');
-            // return redirect()->route('dashboard.index');
-            Alert::success('Success ', 'You\'re account has been registered');
-            dd($user);
+        } 
+        else
+        {
+            $userCreated = User::create([
+                'name' => $Googleuser->name,
+                'email' => $Googleuser->email,
+                'password' => Hash::make(Str::random(8)),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+                'google_id' => $Googleuser->id
+            ]);
+
+            auth()->login($userCreated, true);
         }
     }
 
-    public function register($data)
-    {
-        $current_timestamp = Carbon::now()->timestamp;
-        $usercheck = User::where('email', '=', $data->email)->first();
-        
-    }
 
     public function loging(Request $request)
     {
