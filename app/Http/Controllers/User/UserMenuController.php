@@ -13,17 +13,17 @@ class UserMenuController extends Controller
 
     public function daftarkosan()
     {
-        return view('main.daftarkosan');
+        return view('user.daftarkosan');
     }
 
     public function contactperson()
     {
-        return view('main.contactperson');
+        return view('user.contactperson');
     }
 
     public function profil()
     {
-        return view('main.profil');
+        return view('user.profil');
     }
 
 }

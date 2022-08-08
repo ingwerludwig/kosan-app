@@ -19,27 +19,9 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-
-    //Google login
-    public function redirectToGoogle()
-    {
-        return Socialite::driver('google')->redirect();
-    }
-
-
-    //Google callback
-    public function handleGoogleCallback()
-    {
-        $user = Socialite::driver('google')->user();
-        $this->registerOrLoginGoogle($user);
-        return redirect()->route('dashboard.index');
-    }
-
-
-    public function registerOrLoginGoogle($Googleuser)
+    public function registerOrLoginGoogle($Googleuser, User $user)
     {
         $user_exist = User::where('email', $Googleuser->email)->first();
-
         if ($user_exist)
         {
             auth()->login($user_exist);
@@ -48,15 +30,7 @@ class LoginController extends Controller
         } 
         else
         {
-            $userCreated = User::create([
-                'name' => $Googleuser->name,
-                'email' => $Googleuser->email,
-                'password' => Hash::make(Str::random(8)),
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-                'google_id' => $Googleuser->id
-            ]);
-
+            $userCreated = $user->insertData($Googleuser);
             auth()->login($userCreated, true);
         }
     }

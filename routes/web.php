@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\SignupController;
 use App\Http\Controllers\User\UserMenuController;
 use App\Http\Controllers\Admin\AdminMenuController;
+use App\Http\Controllers\Auth\GoogleOAuth\GoogleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,8 +29,8 @@ Route::get('/logout',[LogoutController::class, 'index'])->name('index.logout');
 Route::post('/loggingout',[LogoutController::class, 'loggingout'])->name('loggingout');
 
 //  Google Sign In
-Route::get('/login/google',[LoginController::class, 'redirectToGoogle'])->name('login.redirect.google');
-Route::get('/login/callback',[LoginController::class, 'handleGoogleCallback']);
+Route::get('/login/google',[GoogleController::class, 'redirectToGoogle'])->name('login.redirect.google');
+Route::get('/login/callback',[GoogleController::class, 'handleGoogleCallback']);
 
 //  Sign Up
 Route::get('/signup', [SignupController::class, 'index'])->name('signup');
@@ -44,9 +45,12 @@ Route::middleware(['customAuth'])->group(
     }
 );
 
-Route::middleware(['customAuth, verifyAdmin'])->group(
+
+Route::middleware(['verifyAdmin'])->group(
     function(){
         Route::get('/admin/dashboard', [AdminMenuController::class, 'index'])->name('admin.dashboard');
-
+        Route::get('/admin/daftarkosan', [AdminMenuController::class, 'adminDaftarKosan'])->name('admin.daftarkosan.index');
+        Route::get('/admin/listkontak', [AdminMenuController::class, 'adminListKontak'])->name('admin.listkontak.index');
+        Route::get('/admin/listpembayaran', [AdminMenuController::class, 'adminListPembayaran'])->name('admin.listpembayaran.index');
     }
 );

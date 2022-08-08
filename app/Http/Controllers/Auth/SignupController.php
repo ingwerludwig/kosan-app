@@ -18,7 +18,7 @@ class SignupController extends Controller
         return view('signup.index');
     }
 
-    public function store(Request $request)
+    public function store(Request $request, User $user)
     {
         $user= new User;
         $user->name = $request->signup_name;
