@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers\User;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\KostController;
 
 class UserMenuController extends Controller
 {
     public function index()
     {
-        return view('dashboard.index');
+        $KostController = new KostController();
+        $data = $KostController->findAll();
+        return view('dashboard.index', ['datas' => $data]);
     }
 
     public function daftarkosan()
@@ -24,6 +28,13 @@ class UserMenuController extends Controller
     public function profil()
     {
         return view('user.profil');
+    }
+
+    public function listkost(Request $request)
+    {
+        $KostController = new KostController();
+        $data = $KostController->findKost($request->alamat);
+        return view('dashboard.index', ['datas' => $data]);
     }
 
 }

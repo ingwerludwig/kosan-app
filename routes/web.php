@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\KostController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
@@ -42,6 +43,7 @@ Route::middleware(['customAuth'])->group(
         Route::get('/daftarkosan', [UserMenuController::class, 'daftarkosan'])->name('daftarkosan.index');
         Route::get('/contactperson', [UserMenuController::class, 'contactperson'])->name('contactperson.index');
         Route::get('/profil', [UserMenuController::class, 'profil'])->name('profil.index');
+        Route::post('/search_kost', [UserMenuController::class, 'listkost'])->name('find.kost');
     }
 );
 

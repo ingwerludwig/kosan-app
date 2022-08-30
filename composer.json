@@ -12,7 +12,9 @@
         "laravel/socialite": "^5.5",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^3.4",
-        "realrashid/sweet-alert": "^5.1"
+        "predis/predis": "^2.0",
+        "realrashid/sweet-alert": "^5.1",
+        "vetruvet/laravel-phpredis": "1.*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
