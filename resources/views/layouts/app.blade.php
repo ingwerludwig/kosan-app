@@ -33,7 +33,6 @@
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
 	<link rel="stylesheet" type="text/css" href="css/daftar.css">
 	<link rel="stylesheet" type="text/css" href="css/profile.css">
-	<link rel="stylesheet" type="text/css" href="css/listkosan.css">
 
 <!--===============================================================================================-->
 

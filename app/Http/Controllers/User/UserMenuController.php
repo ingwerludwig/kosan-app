@@ -36,5 +36,4 @@ class UserMenuController extends Controller
         $data = $KostController->findKost($request->alamat);
         return view('dashboard.index', ['datas' => $data]);
     }
-
 }
