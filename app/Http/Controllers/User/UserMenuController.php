@@ -27,7 +27,7 @@ class UserMenuController extends Controller
 
     public function profil()
     {
-        return view('user.profil');
+        return view('user.profil1');
     }
 
     public function listkost(Request $request)
